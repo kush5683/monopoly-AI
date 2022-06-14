@@ -5,7 +5,7 @@ import Player
 from enums import Color, SpaceType
 import json
 from random import choice
-
+from ColorPrinting import *
 
 @dataclass
 class CommunityChest(Space):
@@ -20,6 +20,26 @@ class CommunityChest(Space):
         with open("../space data/community chest jsons/community.json", "r") as file:
             community_json = json.load(file)
             return choice(community_json["CARD_TEXTS"])
+
+    def __repr__(self):
+        if self.color == Color.BROWN:
+            return brown(self.name)
+        elif self.color == Color.LIGHT_BLUE:
+            return light_blue(self.name)
+        elif self.color == Color.PINK:
+            return pink(self.name)
+        elif self.color == Color.ORANGE:
+            return orange(self.name)
+        elif self.color == Color.RED:
+            return red(self.name)
+        elif self.color == Color.YELLOW:
+            return yellow(self.name)
+        elif self.color == Color.GREEN:
+            return green(self.name)
+        elif self.color == Color.DARK_BLUE:
+            return dark_blue(self.name)
+        elif self.color == Color.BLANK:
+            return blank(self.name)
 
     def add_visitor(self, visitor: Player) -> Space:
         """

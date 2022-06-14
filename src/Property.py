@@ -1,9 +1,9 @@
-
 from dataclasses import dataclass, field
 
 from Player import Player
 from enums import Color, SpaceType
 from Space import Space
+from ColorPrinting import *
 
 
 @dataclass
@@ -21,7 +21,27 @@ class Property(Space):
     visitors: list[Player] = field(default_factory=list)  # list of players who are visiting the property
     most_recent_visitor: Player = None  # most recent visitor of the property
     houses_built: int = 0  # number of houses built on the property
-    current_rent: float = None # current rent of the property
+    current_rent: float = None  # current rent of the property
+
+    def __repr__(self):
+        if self.color == Color.BROWN:
+            return brown(self.name)
+        elif self.color == Color.LIGHT_BLUE:
+            return light_blue(self.name)
+        elif self.color == Color.PINK:
+            return pink(self.name)
+        elif self.color == Color.ORANGE:
+            return orange(self.name)
+        elif self.color == Color.RED:
+            return red(self.name)
+        elif self.color == Color.YELLOW:
+            return yellow(self.name)
+        elif self.color == Color.GREEN:
+            return green(self.name)
+        elif self.color == Color.DARK_BLUE:
+            return dark_blue(self.name)
+        elif self.color == Color.BLANK:
+            return blank(self.name)
 
     def init_prop(self) -> Space:
         """

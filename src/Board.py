@@ -39,7 +39,27 @@ class Board:
                     filename = "../space data/property jsons/property" + str(property_count) + ".json"
                     with open(filename, "r") as property_file:
                         property_json = json.load(property_file)
-                        p = Property(name=property_json["NAME"], color=property_json["COLOR"], type=SpaceType.PROPERTY,
+                        color = None
+                        match property_json["COLOR"].upper():
+                            case "BLANK":
+                                color = Color.BLANK
+                            case "BROWN":
+                                color = Color.BROWN
+                            case "LIGHT_BLUE":
+                                color = Color.LIGHT_BLUE
+                            case "PINK":
+                                color = Color.PINK
+                            case "ORANGE":
+                                color = Color.ORANGE
+                            case "RED":
+                                color = Color.RED
+                            case "YELLOW":
+                                color = Color.YELLOW
+                            case "GREEN":
+                                color = Color.GREEN
+                            case "DARK_BLUE":
+                                color = Color.DARK_BLUE
+                        p = Property(name=property_json["NAME"], color=color, type=SpaceType.PROPERTY,
                                      cost=property_json["PRICE"],
                                      rent={0: property_json["RENT"],
                                            1: property_json["RENT_1"],
