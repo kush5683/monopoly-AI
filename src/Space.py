@@ -1,4 +1,14 @@
-from abc import ABC, abstractmethod
+from __future__ import annotations
 
-def Space(ABC):
+from abc import ABC, abstractmethod
+from enums import Color, SpaceType
+
+
+class Space(ABC):
+    type: SpaceType
+
+    @abstractmethod
+    def land(self, *args, **kwargs) -> Space:
+        pass
+
     pass

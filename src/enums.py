@@ -13,7 +13,9 @@ class SpaceType(enum.Enum):
     GO_TO_JAIL = 5
     TAX = 6
     CHANCE = 7
-    COMMUNITY = 8
+    COMMUNITY_CHEST = 8
+    JAIL = 9
+    RAILROAD = 10
 
 
 class Color(enum.Enum):
@@ -29,3 +31,14 @@ class Color(enum.Enum):
     YELLOW = 5
     GREEN = 6
     DARK_BLUE = 7
+
+
+class ExitStrategy(enum.Enum):
+    """
+    Enum for the different exit strategies in the game.
+    """
+    EXIT_VIA_PAYMENT = 0
+    EXIT_VIA_DOUBLE_ROLL = 1
+    EXIT_VIA_TIME_SERVED = 2
+    EXIT_NOT_IN_JAIL = 3
+    EXIT_NOT_SUCCESSFUL = 4

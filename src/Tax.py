@@ -1,17 +1,17 @@
 from dataclasses import dataclass
-from typing import List
 
 import Player
-from enums import Color
-import Property
-import Space
+from enums import Color, SpaceType
+from Space import Space
+
 
 @dataclass
 class Tax(Space):
     name: str
     color: Color
+    type: SpaceType
     rent: float
-    visitors: List[Player]
+    visitors: list[Player]
     most_recent_visitor: Player
 
     def land(self) -> float:
@@ -21,7 +21,7 @@ class Tax(Space):
         self.most_recent_visitor.remove_balance(self.rent)
         return self.most_recent_visitor.get_balance()
 
-    def add_visitor(self, visitor: Player) -> Property:
+    def add_visitor(self, visitor: Player) -> Space:
         """
         Adds a visitor to the property.
         """
@@ -29,7 +29,14 @@ class Tax(Space):
         self.most_recent_visitor = visitor
         return self
 
-    def get_visitors(self) -> List[Player]:
+    def remove_visitor(self, visitor: Player) -> Space:
+        """
+        Removes a visitor from the property.
+        """
+        self.visitors.remove(visitor)
+        return self
+
+    def get_visitors(self) -> list[Player]:
         """
         Returns the list of visitors.
         """

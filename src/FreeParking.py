@@ -1,14 +1,13 @@
 from dataclasses import dataclass
 from typing import List
-
-import Player
-from enums import Color, SpaceType
 from Property import Property
 from Space import Space
+import Player
+from enums import Color, SpaceType
 
 
 @dataclass
-class Go(Space):
+class FreeParking(Space):
     name: str
     color: Color
     type: SpaceType
@@ -16,13 +15,8 @@ class Go(Space):
     visitors: list[Player]
     most_recent_visitor: Player
 
-    def land(self) -> float:
-        """
-        Collect $200 from the bank.
-        :return:
-        """
-        self.most_recent_visitor.add_balance(self.rent)
-        return self.most_recent_visitor.get_balance()
+    def land(self) -> None:
+        pass
 
     def add_visitor(self, visitor: Player) -> Space:
         """

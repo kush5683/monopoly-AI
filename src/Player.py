@@ -1,15 +1,14 @@
-from typing import List
-from random import randint
-import Property
 import Space
 
 
 class Player:
-    def __init__(self, player_id: int, balance: float, properties: List[Property], current_space: Space):
+    def __init__(self, player_id: int, balance: float, properties: list[Space], current_space: Space):
         self.id = player_id
         self.balance = balance
         self.properties = properties
         self.current_space = current_space
+        self.in_jail = False
+        self.turns_left_in_jail = 0
 
     def get_id(self) -> int:
         return self.id
@@ -20,14 +19,14 @@ class Player:
     def get_balance(self) -> float:
         return self.balance
 
-    def get_properties(self) -> List[Property]:
+    def get_properties(self) -> list[Space]:
         return self.properties
 
-    def add_property(self, property: Property) -> List[Property]:
+    def add_property(self, property: Space) -> list[Space]:
         self.properties.append(property)
         return self.properties
 
-    def remove_property(self, property: Property) -> List[Property]:
+    def remove_property(self, property: Space) -> list[Space]:
         self.properties.remove(property)
         return self.properties
 
@@ -38,5 +37,10 @@ class Player:
     def remove_balance(self, amount: float) -> float:
         self.balance -= amount
         return self.balance
+
+    def put_in_jail(self, jail_space: Space) -> Space:
+        self.in_jail = True
+        self.current_space = jail_space
+        return self.current_space
 
 

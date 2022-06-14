@@ -1,3 +1,5 @@
+from Board import Board
 
 if __name__ == '__main__':
-    print('Hello World!')
+    board = Board()
+    print(board)

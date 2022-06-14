@@ -1,14 +1,14 @@
 from dataclasses import dataclass
-from typing import List
 
+from Space import Space
 import Player
 from enums import Color, SpaceType
-from Property import Property
-from Space import Space
+import json
+from random import choice
 
 
 @dataclass
-class Go(Space):
+class CommunityChest(Space):
     name: str
     color: Color
     type: SpaceType
@@ -16,13 +16,10 @@ class Go(Space):
     visitors: list[Player]
     most_recent_visitor: Player
 
-    def land(self) -> float:
-        """
-        Collect $200 from the bank.
-        :return:
-        """
-        self.most_recent_visitor.add_balance(self.rent)
-        return self.most_recent_visitor.get_balance()
+    def land(self) -> str:
+        with open("../space data/community chest jsons/community.json", "r") as file:
+            community_json = json.load(file)
+            return choice(community_json["CARD_TEXTS"])
 
     def add_visitor(self, visitor: Player) -> Space:
         """
