@@ -1,20 +1,21 @@
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-from enums import Color, SpaceType
+from dataclasses import dataclass
+
 from ColorPrinting import *
+from enums import Color, SpaceType
 
 
-class Space(ABC):
-    type: SpaceType
-    color: Color
+@dataclass
+class Space:
     name: str
+    color: Color
+    type: SpaceType
+    rent: dict
 
-    @abstractmethod
     def land(self, *args, **kwargs) -> Space:
         pass
 
-    @abstractmethod
     def __repr__(self):
         if self.color == Color.BROWN:
             return brown(self.name)

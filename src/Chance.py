@@ -1,20 +1,18 @@
-from dataclasses import dataclass
-
-from Space import Space
-import Player
-from enums import Color, SpaceType
 import json
+from dataclasses import dataclass
 from random import choice
+
+import Player
 from ColorPrinting import *
+from Space import Space
+from enums import Color
+
 
 @dataclass
 class Chance(Space):
-    name: str
-    color: Color
-    type: SpaceType
-    rent: float
     visitors: list[Player]
     most_recent_visitor: Player
+    owner: Player = None
 
     def land(self) -> str:
         with open("../space data/chance jsons/chance.json", "r") as file:
@@ -22,24 +20,7 @@ class Chance(Space):
             return choice(community_json["CARD_TEXTS"])
 
     def __repr__(self):
-        if self.color == Color.BROWN:
-            return brown(self.name)
-        elif self.color == Color.LIGHT_BLUE:
-            return light_blue(self.name)
-        elif self.color == Color.PINK:
-            return pink(self.name)
-        elif self.color == Color.ORANGE:
-            return orange(self.name)
-        elif self.color == Color.RED:
-            return red(self.name)
-        elif self.color == Color.YELLOW:
-            return yellow(self.name)
-        elif self.color == Color.GREEN:
-            return green(self.name)
-        elif self.color == Color.DARK_BLUE:
-            return dark_blue(self.name)
-        elif self.color == Color.BLANK:
-            return blank(self.name)
+        return super().__repr__()
 
     def add_visitor(self, visitor: Player) -> Space:
         """
