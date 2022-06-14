@@ -142,3 +142,17 @@ class Board:
 
     def get_banker(self) -> Banker:
         return self.BankerPlayer
+
+    def get_go_space(self) -> Go:
+        return self.GoSpace
+
+    def get_free_parking_space(self) -> FreeParking:
+        return self.FreeParkingSpace
+
+    def get_go_to_jail_space(self) -> GoToJail:
+        return self.GoToJailSpace
+
+    def get_jail_space(self) -> Jail:
+        return self.JailSpace
+
+

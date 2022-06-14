@@ -2,13 +2,18 @@ import Space
 
 
 class Player:
-    def __init__(self, player_id: int, balance: float, properties: list[Space], current_space: Space):
+    def __init__(self, player_id: int, balance: float = 1500.0, properties=None, current_space: Space = None):
+        if properties is None:
+            properties = []
         self.id = player_id
         self.balance = balance
         self.properties = properties
         self.current_space = current_space
         self.in_jail = False
         self.turns_left_in_jail = 0
+
+    def __repr__(self):
+        return f"Player({self.id=}, {self.balance=}, {self.properties=})"
 
     def get_id(self) -> int:
         return self.id
