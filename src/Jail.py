@@ -1,20 +1,16 @@
 from dataclasses import dataclass
-from typing import List
 from random import randint
+
 import Player
-from enums import Color, SpaceType, ExitStrategy
-from Property import Property
 from Space import Space
-from ColorPrinting import *
+from enums import ExitStrategy
+
 
 @dataclass
 class Jail(Space):
-    name: str
-    color: Color
-    type: SpaceType
-    rent: float
     visitors: list[Player]
     most_recent_visitor: Player
+    owner: Player = None
 
     def land(self, visitor: Player, payment: bool) -> ExitStrategy:
         self.most_recent_visitor = visitor
@@ -40,24 +36,7 @@ class Jail(Space):
             return ExitStrategy.EXIT_NOT_IN_JAIL
 
     def __repr__(self):
-        if self.color == Color.BROWN:
-            return brown(self.name)
-        elif self.color == Color.LIGHT_BLUE:
-            return light_blue(self.name)
-        elif self.color == Color.PINK:
-            return pink(self.name)
-        elif self.color == Color.ORANGE:
-            return orange(self.name)
-        elif self.color == Color.RED:
-            return red(self.name)
-        elif self.color == Color.YELLOW:
-            return yellow(self.name)
-        elif self.color == Color.GREEN:
-            return green(self.name)
-        elif self.color == Color.DARK_BLUE:
-            return dark_blue(self.name)
-        elif self.color == Color.BLANK:
-            return blank(self.name)
+        return super().__repr__()
 
     def add_visitor(self, visitor: Player) -> Space:
         """

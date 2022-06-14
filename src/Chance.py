@@ -1,20 +1,18 @@
-from dataclasses import dataclass
-
-from Space import Space
-import Player
-from enums import Color, SpaceType
 import json
+from dataclasses import dataclass
 from random import choice
+
+import Player
 from ColorPrinting import *
+from Space import Space
+from enums import Color
+
 
 @dataclass
 class Chance(Space):
-    name: str
-    color: Color
-    type: SpaceType
-    rent: float
     visitors: list[Player]
     most_recent_visitor: Player
+    owner: Player = None
 
     def land(self) -> str:
         with open("../space data/chance jsons/chance.json", "r") as file:
