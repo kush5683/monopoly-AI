@@ -1,0 +1,14 @@
+{
+  "NAME": "Pacific Avenue",
+  "COLOR": "green",
+  "PRICE": 300,
+  "RENT": 26,
+  "RENT_1": 130,
+  "RENT_2": 390,
+  "RENT_3": 900,
+  "RENT_4": 1100,
+  "RENT_5": 1275,
+  "MORTGAGE": 150,
+  "HOUSE_PRICE": 200,
+  "HOTEL_PRICE": 200
+}

@@ -1,0 +1,14 @@
+{
+  "NAME": "Virginia Avenue",
+  "COLOR": "pink",
+  "PRICE": 160,
+  "RENT": 12,
+  "RENT_1": 60,
+  "RENT_2": 180,
+  "RENT_3": 500,
+  "RENT_4": 700,
+  "RENT_5": 900,
+  "MORTGAGE": 80,
+  "HOUSE_PRICE": 100,
+  "HOTEL_PRICE": 100
+}

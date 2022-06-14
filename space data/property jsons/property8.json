@@ -1,0 +1,14 @@
+{
+  "NAME": "St. James Place",
+  "COLOR": "orange",
+  "PRICE": 180,
+  "RENT": 14,
+  "RENT_1": 70,
+  "RENT_2": 200,
+  "RENT_3": 550,
+  "RENT_4": 750,
+  "RENT_5": 950,
+  "MORTGAGE": 90,
+  "HOUSE_PRICE": 100,
+  "HOTEL_PRICE": 100
+}

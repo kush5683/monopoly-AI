@@ -1,0 +1,14 @@
+{
+  "NAME": "New York Avenue",
+  "COLOR": "Orange",
+  "PRICE": 200,
+  "RENT": 16,
+  "RENT_1": 80,
+  "RENT_2": 220,
+  "RENT_3": 600,
+  "RENT_4": 800,
+  "RENT_5": 1000,
+  "MORTGAGE": 100,
+  "HOUSE_PRICE": 100,
+  "HOTEL_PRICE": 100
+}

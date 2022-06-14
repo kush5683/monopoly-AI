@@ -1,0 +1,14 @@
+{
+  "NAME": "St. Charles Place",
+  "COLOR": "pink",
+  "PRICE": 140,
+  "RENT": 10,
+  "RENT_1": 50,
+  "RENT_2": 150,
+  "RENT_3": 450,
+  "RENT_4": 625,
+  "RENT_5": 750,
+  "MORTGAGE": 70,
+  "HOUSE_PRICE": 100,
+  "HOTEL_PRICE": 100,
+}

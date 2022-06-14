@@ -1,0 +1,14 @@
+{
+  "NAME": "Baltic Avenue",
+  "COLOR": "brown",
+  "PRICE": 60,
+  "RENT": 4,
+  "RENT_1": 20,
+  "RENT_2": 60,
+  "RENT_3": 180,
+  "RENT_4": 320,
+  "RENT_5": 450,
+  "MORTGAGE": 30,
+  "HOUSE_PRICE": 50,
+  "HOTEL_PRICE": 50
+}

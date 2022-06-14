@@ -4,9 +4,8 @@ from dataclasses import dataclass
 from typing import List
 
 import Player
-import Space
 from enums import Color
-
+import Space
 
 @dataclass
 class Property(Space):
@@ -22,7 +21,7 @@ class Property(Space):
     visitors: list  # list of players who are visiting the property
     most_recent_visitor: Player  # most recent visitor of the property
 
-    def pay_rent(self) -> float:
+    def land(self) -> float:
         """
         Pay the rent of the property.
         """

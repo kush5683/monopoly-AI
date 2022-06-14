@@ -1,0 +1,14 @@
+{
+  "NAME": "Vermont Avenue",
+  "COLOR": "light blue",
+  "PRICE": 100,
+  "RENT": 6,
+  "RENT_1": 30,
+  "RENT_2": 90,
+  "RENT_3": 270,
+  "RENT_4": 400,
+  "RENT_5": 550,
+  "MORTGAGE": 50,
+  "HOUSE_PRICE": 50,
+  "HOTEL_PRICE": 50
+}

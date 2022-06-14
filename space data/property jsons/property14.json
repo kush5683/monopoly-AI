@@ -1,0 +1,14 @@
+{
+  "NAME": "Atlantic Avenue",
+  "COLOR": "yellow",
+  "PRICE": 260,
+  "RENT": 22,
+  "RENT_1": 110,
+  "RENT_2": 330,
+  "RENT_3": 800,
+  "RENT_4": 975,
+  "RENT_5": 1150,
+  "MORTGAGE": 130,
+  "HOUSE_PRICE": 150,
+  "HOTEL_PRICE": 150
+}

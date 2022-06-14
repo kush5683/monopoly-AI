@@ -1,0 +1,14 @@
+{
+  "NAME": "Connecticut Avenue",
+  "COLOR": "light blue",
+  "PRICE": 120,
+  "RENT": 8,
+  "RENT_1": 40,
+  "RENT_2": 100,
+  "RENT_3": 300,
+  "RENT_4": 450,
+  "RENT_5": 600,
+  "MORTGAGE": 60,
+  "HOUSE_PRICE": 50,
+  "HOTEL_PRICE": 50
+}

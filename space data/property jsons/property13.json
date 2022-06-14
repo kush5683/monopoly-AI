@@ -1,0 +1,14 @@
+{
+  "NAME": "Illinois Avenue",
+  "COLOR": "red",
+  "PRICE": 240,
+  "RENT": 20,
+  "RENT_1": 100,
+  "RENT_2": 300,
+  "RENT_3": 750,
+  "RENT_4": 925,
+  "RENT_5": 1100,
+  "MORTGAGE": 120,
+  "HOUSE_PRICE": 150,
+  "HOTEL_PRICE": 150
+}

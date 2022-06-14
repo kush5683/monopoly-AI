@@ -1,0 +1,14 @@
+{
+  "NAME": "Indiana Avenue",
+  "COLOR": "red",
+  "PRICE": 220,
+  "RENT": 18,
+  "RENT_1": 90,
+  "RENT_2": 250,
+  "RENT_3": 700,
+  "RENT_4": 875,
+  "RENT_5": 1050,
+  "MORTGAGE": 110,
+  "HOUSE_PRICE": 150,
+  "HOTEL_PRICE": 150
+}

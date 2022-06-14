@@ -1,0 +1,14 @@
+{
+  "NAME": "Pennsylvania Avenue",
+  "COLOR": "green",
+  "PRICE": 320,
+  "RENT": 28,
+  "RENT_1": 150,
+  "RENT_2": 450,
+  "RENT_3": 1000,
+  "RENT_4": 1200,
+  "RENT_5": 1400,
+  "MORTGAGE": 160,
+  "HOUSE_PRICE": 200,
+  "HOTEL_PRICE": 200
+}

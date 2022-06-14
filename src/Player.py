@@ -1,7 +1,7 @@
 from typing import List
 from random import randint
-from src.property import Property
-from src.Space import Space
+import Property
+import Space
 
 
 class Player:
@@ -39,6 +39,4 @@ class Player:
         self.balance -= amount
         return self.balance
 
-    def roll_dice(self) -> int:
-        return randint(1, 6)
 
