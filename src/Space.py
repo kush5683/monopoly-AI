@@ -47,6 +47,7 @@ class Space:
         elif self.color == Color.BLANK:
             return blank(self.name)
 
+
     def add_visitor(self, visitor: Player.Player) -> Space:
         """
         Adds a visitor to the property.

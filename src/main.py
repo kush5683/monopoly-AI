@@ -1,6 +1,7 @@
 from Board import Board
 from Player import Player
 from PlayerOrder import PlayerOrder
+from rich import print
 
 if __name__ == '__main__':
     board = Board()
