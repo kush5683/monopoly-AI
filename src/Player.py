@@ -13,7 +13,7 @@ class Player:
         self.turns_left_in_jail = 0
 
     def __repr__(self):
-        return f"Player({self.id=}, {self.balance=}, {self.properties=})"
+        return f"Player({self.id=},{self.current_space=},{self.balance=}, {self.properties=})"
 
     def get_id(self) -> int:
         return self.id
@@ -47,5 +47,3 @@ class Player:
         self.in_jail = True
         self.current_space = jail_space
         return self.current_space
-
-

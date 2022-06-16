@@ -20,6 +20,7 @@ class PlayerOrder:
     """
     Rolls a die for each player and then sorts by each player's roll.
     """
+
     def init_player_order(self) -> None:
         rolls = [randint(1, 6) for _ in range(len(self.players))]
         new_order = sorted(list(zip(self.players, rolls)), key=lambda x: x[1])

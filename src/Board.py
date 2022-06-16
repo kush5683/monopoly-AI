@@ -18,15 +18,20 @@ class Board:
     def __init__(self):
         self.board = []
         self.board_iterator = iter(self.board)
-        self.GoSpace = Go(name="Go", color=Color.BLANK, type=SpaceType.GO, rent={0:200},
-                          visitors=[], most_recent_visitor=None)
-        self.JailSpace = Jail(name="Jail", color=Color.BLANK, type=SpaceType.JAIL, rent={0:0},
-                              visitors=[], most_recent_visitor=None)
-        self.FreeParkingSpace = FreeParking(name="Free Parking", color=Color.BLANK, type=SpaceType.FREE_PARKING, rent={0:0},
-                                            visitors=[], most_recent_visitor=None)
-        self.GoToJailSpace = GoToJail(name="Go To Jail", color=Color.BLANK, type=SpaceType.GO_TO_JAIL, rent={0:0},
-                                      visitors=[], most_recent_visitor=None, jail_space=self.JailSpace)
         self.BankerPlayer = Banker()
+        self.GoSpace = Go(name="Go", color=Color.BLANK, type=SpaceType.GO, rent={0: 200},
+                          cost=float("inf"), mortgage=float("inf"),
+                          house_cost=float("inf"), hotel_cost=float("inf"))
+        self.JailSpace = Jail(name="Jail", color=Color.BLANK, type=SpaceType.JAIL, rent={0: 0},
+                              cost=float("inf"), mortgage=float("inf"),
+                              house_cost=float("inf"), hotel_cost=float("inf"))
+        self.FreeParkingSpace = FreeParking(name="Free Parking", color=Color.BLANK, type=SpaceType.FREE_PARKING,
+                                            rent={0: 0},
+                                            cost=float("inf"), mortgage=float("inf"),
+                                            house_cost=float("inf"), hotel_cost=float("inf"))
+        self.GoToJailSpace = GoToJail(name="Go To Jail", color=Color.BLANK, type=SpaceType.GO_TO_JAIL, rent={0: 0},
+                                      jail_space=self.JailSpace, owner=self.BankerPlayer)
+
         property_count = 0
         RR_count = 0
         U_count = 0
@@ -37,7 +42,6 @@ class Board:
                 line = line.strip()
                 if line == "GO":
                     self.board.append(self.GoSpace)
-                    # print(GoSpace)
                 elif line == "P":
                     filename = "../space data/property jsons/property" + str(property_count) + ".json"
                     with open(filename, "r") as property_file:
@@ -79,14 +83,16 @@ class Board:
                         property_count += 1
                 elif line == "CC":
                     cc = CommunityChest(name="Community Chest", color=Color.BLANK, type=SpaceType.COMMUNITY_CHEST,
-                                        rent={0:0}, visitors=[], most_recent_visitor=None)
+                                        rent={0: 0}, cost=float("inf"), mortgage=float("inf"),
+                                        house_cost=float("inf"), hotel_cost=float("inf"))
                     self.board.append(cc)
                 elif line == "T":
                     filename = "../space data/tax space jsons/tax" + str(T_count) + ".json"
                     with open(filename, "r") as tax_file:
                         tax_json = json.load(tax_file)
                         t = Tax(name=tax_json["NAME"], color=Color.BLANK, type=SpaceType.TAX,
-                                rent=tax_json["COST"], visitors=[], most_recent_visitor=None)
+                                rent=tax_json["COST"], cost=float("inf"), mortgage=float("inf"),
+                                house_cost=float("inf"), hotel_cost=float("inf"))
                         self.board.append(t)
                         T_count += 1
                 elif line == "RR":
@@ -105,8 +111,9 @@ class Board:
                         self.board.append(rr)
                         RR_count += 1
                 elif line == "CH":
-                    ch = Chance(name="Chance", color=Color.BLANK, type=SpaceType.CHANCE, rent={0:0},
-                                visitors=[], most_recent_visitor=None)
+                    ch = Chance(name="Chance", color=Color.BLANK, type=SpaceType.CHANCE, rent={0: 0},
+                                cost=float("inf"), mortgage=float("inf"),
+                                house_cost=float("inf"), hotel_cost=float("inf"))
                     self.board.append(ch)
                 elif line == "J":
                     self.board.append(self.JailSpace)
@@ -154,5 +161,3 @@ class Board:
 
     def get_jail_space(self) -> Jail:
         return self.JailSpace
-
-

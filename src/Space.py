@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
+import Player
 from ColorPrinting import *
 from enums import Color, SpaceType
 
@@ -11,10 +12,20 @@ class Space:
     name: str
     color: Color
     type: SpaceType
+    cost: float
+    mortgage: float
+    house_cost: float
+    hotel_cost: float
     rent: dict
+    owner: Player = None  # owner of the property
+    houses_built: int = 0  # number of houses built on the property
+    current_rent: int = 0
+    visitors: list[Player.Player] = field(default_factory=list)  # list of players who are visiting the property
+    most_recent_visitor: Player.Player = None  # most recent visitor of the property
 
-    def land(self, *args, **kwargs) -> Space:
-        pass
+    def land(self, visitor: Player.Player, *args, **kwargs) -> Space:
+        self.most_recent_visitor = visitor
+        return self
 
     def __repr__(self):
         if self.color == Color.BROWN:
@@ -35,3 +46,24 @@ class Space:
             return dark_blue(self.name)
         elif self.color == Color.BLANK:
             return blank(self.name)
+
+    def add_visitor(self, visitor: Player.Player) -> Space:
+        """
+        Adds a visitor to the property.
+        """
+        self.visitors.append(visitor)
+        self.most_recent_visitor = visitor
+        return self
+
+    def remove_visitor(self, visitor: Player.Player) -> Space:
+        """
+        Removes a visitor from the property.
+        """
+        self.visitors.remove(visitor)
+        return self
+
+    def get_visitors(self) -> list[Player.Player]:
+        """
+        Returns the list of visitors.
+        """
+        return self.visitors
