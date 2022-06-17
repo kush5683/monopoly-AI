@@ -3,19 +3,19 @@ import json
 from Banker import Banker
 from Chance import Chance
 from CommunityChest import CommunityChest
+from Dice import roll as roll_dice
 from FreeParking import FreeParking
 from Go import Go
 from GoToJail import GoToJail
 from Jail import Jail
+from Player import Player
+from PlayerOrder import PlayerOrder
 from Property import Property
 from RailRoad import RailRoad
+from Space import Space
 from Tax import Tax
 from Utility import Utility
 from enums import SpaceType, Color, ExitStrategy
-from Player import Player
-from PlayerOrder import PlayerOrder
-from Dice import roll as roll_dice
-from Space import Space
 
 
 class Board:

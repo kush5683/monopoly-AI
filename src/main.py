@@ -1,7 +1,8 @@
+from rich import print
+
 from Board import Board
 from Player import Player
 from PlayerOrder import PlayerOrder
-from rich import print
 
 if __name__ == '__main__':
     board = Board()
@@ -25,5 +26,3 @@ if __name__ == '__main__':
 
     for _ in range(num_players):
         print(next(board.player_order))
-
-
