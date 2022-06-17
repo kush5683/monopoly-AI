@@ -1,5 +1,5 @@
 import Space
-
+from random import randint
 
 class Player:
     def __init__(self, player_id: int, balance: float = 1500.0, properties=None, current_space: Space = None):
@@ -52,3 +52,4 @@ class Player:
         self.in_jail = True
         self.current_space = jail_space
         return self.current_space
+

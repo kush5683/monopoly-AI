@@ -11,9 +11,11 @@ from Property import Property
 from RailRoad import RailRoad
 from Tax import Tax
 from Utility import Utility
-from enums import SpaceType, Color
+from enums import SpaceType, Color, ExitStrategy
 from Player import Player
 from PlayerOrder import PlayerOrder
+from Dice import roll as roll_dice
+from Space import Space
 
 
 class Board:
@@ -23,6 +25,8 @@ class Board:
         self.active_board = dict()
         self.BankerPlayer = Banker()
         self.player_order = None
+        self.active_player = None
+        self.double_roll_count = 0
         self.GoSpace = Go(name="Go", color=Color.BLANK, type=SpaceType.GO, rent={0: 200},
                           cost=float("inf"), mortgage=float("inf"),
                           house_cost=float("inf"), hotel_cost=float("inf"))
@@ -165,6 +169,7 @@ class Board:
         self.player_order = players
         for p in players.get_player_order():
             self.active_board[self.GoSpace].append(p)
+        self.active_player = next(self.player_order)
 
     def get_players(self) -> list[Player]:
         for player in self.player_order:
@@ -184,3 +189,40 @@ class Board:
 
     def get_jail_space(self) -> Jail:
         return self.JailSpace
+
+    def get_next_space(self, offset: int):
+        player = self.active_player
+        current_space = player.get_current_space()
+        next_space = self._board[(self._board.index(current_space) + offset) % len(self._board)]
+        return next_space
+
+    def move_player(self, player: Player, new_space: Space) -> None:
+        self.active_board[player.get_current_space()].remove(player)
+        self.active_board[new_space].append(player)
+
+    def play_turn(self) -> Player:
+        # TODO: I think this works but im not sure
+        player = self.active_player
+        if player.is_in_jail():
+            exit_code = player.current_space.land()
+            if exit_code == ExitStrategy.EXIT_NOT_SUCCESSFUL:  # player did not exit jail; do nothing
+                return next(self.player_order)
+            if exit_code == ExitStrategy.EXIT_VIA_DOUBLE_ROLL or exit_code == ExitStrategy.EXIT_NOT_IN_JAIL:
+                # allow for roll
+                pass
+        dice = roll_dice()
+
+        if dice[0] == dice[1]:  # if double handle it
+            if self.double_roll_count + 1 >= 3:  # if it's the 3rd double send the player to jail
+                player.put_in_jail(self.get_jail_space())
+                self.double_roll_count = 0
+                return next(self.player_order)
+            self.double_roll_count += 1  # if it's not the third double increment the double roll count
+            next_space = self.get_next_space(dice[0] + dice[1])
+            self.move_player(player, next_space)
+            return player  # return the same player to allow for their second turn due to double roll
+        else:  # no double
+            self.double_roll_count = 0
+            next_space = self.get_next_space(dice[0] + dice[1])
+            self.move_player(player, next_space)
+            return next(self.player_order)  # return the next player in the order

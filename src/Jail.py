@@ -21,6 +21,7 @@ class Jail(Space):
                 visitor.turns_left_in_jail = 0
                 return ExitStrategy.EXIT_VIA_TIME_SERVED
             elif visitor.turns_left_in_jail - 1 > 0:  # more than one turn left, roll for doubles
+                visitor.turns_left_in_jail -= 1
                 die1 = randint(1, 6)
                 die2 = randint(1, 6)
                 if die1 == die2:
