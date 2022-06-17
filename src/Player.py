@@ -13,6 +13,11 @@ class Player:
         self.turns_left_in_jail = 0
 
     def __repr__(self):
+        if self.id == 0:
+            return "Banker"
+        return f"Player {self.id}"
+
+    def __str__(self):
         return f"Player({self.id=},{self.current_space=},{self.balance=}, {self.properties=})"
 
     def get_id(self) -> int:

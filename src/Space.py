@@ -47,6 +47,8 @@ class Space:
         elif self.color == Color.BLANK:
             return blank(self.name)
 
+    def __hash__(self):
+        return hash(self.name)
 
     def add_visitor(self, visitor: Player.Player) -> Space:
         """

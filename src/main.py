@@ -5,8 +5,7 @@ from rich import print
 
 if __name__ == '__main__':
     board = Board()
-    for _ in range(40):
-        print(f"{next(board)}")
+
     with open("../space data/PlayerConfig.txt", "r") as file:
         lines = file.readlines()
         num_players = int(lines[0].strip())
@@ -17,7 +16,14 @@ if __name__ == '__main__':
         p.append(Player(player_id=i + 1, balance=player_start_balance, properties=[],
                         current_space=board.get_go_space()))
     players = PlayerOrder(p)
-
-    print(f"{board.BankerPlayer}")
-    for player in players:
+    board.place_players(players)
+    # print(f"{board.BankerPlayer}")
+    for player in board.get_players():
         print(f"{player}")
+
+    print(board)
+
+    for _ in range(num_players):
+        print(next(board.player_order))
+
+
