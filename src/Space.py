@@ -70,3 +70,9 @@ class Space:
         Returns the list of visitors.
         """
         return self.visitors
+
+    def for_sale(self) -> float:
+        if self.owner.id == 0:
+            return self.cost
+        else:
+            return float('inf')

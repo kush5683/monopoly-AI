@@ -1,6 +1,7 @@
 import Space
 from random import randint
 
+
 class Player:
     def __init__(self, player_id: int, balance: float = 1500.0, properties=None, current_space: Space = None):
         if properties is None:
@@ -53,3 +54,13 @@ class Player:
         self.current_space = jail_space
         return self.current_space
 
+    def buy_current_space(self) -> bool:
+        # TODO: did i miss anything in the transaction process?
+        space_cost = self.current_space.for_sale()
+        if space_cost != float('inf'):
+            self.remove_balance(space_cost)
+            self.current_space.owner = self.current_space.most_recent_visitor
+            self.current_space.owner.add_balance(space_cost)
+            self.current_space.owner.properties.remove(self.current_space)
+            self.properties.append(self.current_space)
+        return True
