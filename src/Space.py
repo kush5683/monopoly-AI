@@ -23,9 +23,10 @@ class Space:
     current_rent: int = 0
     visitors: list[Player.Player] = field(default_factory=list)  # list of players who are visiting the property
     most_recent_visitor: Player.Player = None  # most recent visitor of the property
-    debug_flag: bool = False
+    debug_flag: bool = True
 
     def land(self, visitor: Player.Player, *args, **kwargs) -> Space:
+        self.debug(f"\tPlayer #{visitor.id} landed on {self.name}")
         self.most_recent_visitor = visitor
         return self
 

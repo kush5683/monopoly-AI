@@ -119,7 +119,7 @@ class Board:
                                                                          2: railroad_json["RENT_2"],
                                                                          3: railroad_json["RENT_3"], },
                                       mortgage=railroad_json["MORTGAGE"], house_cost=float('inf'),
-                                      hotel_cost=float('inf'))
+                                      hotel_cost=float('inf'), owner=self.BankerPlayer)
                         rr.init_prop()
                         self.BankerPlayer.add_property(rr)
                         self._board.append(rr)
@@ -140,7 +140,7 @@ class Board:
                         utility_json = json.load(utility_file)
                         u = Utility(name=utility_json["NAME"], color=Color.BLANK, type=SpaceType.UTILITY,
                                     cost=utility_json["PRICE"], rent={0: 0}, mortgage=utility_json["MORTGAGE"],
-                                    house_cost=float('inf'), hotel_cost=float('inf'))
+                                    house_cost=float('inf'), hotel_cost=float('inf'), owner=self.BankerPlayer)
                         self._board.append(u)
                         self.active_board.update({u: []})
                         self.BankerPlayer.add_property(u)
@@ -216,6 +216,7 @@ class Board:
             exit_code = player.current_space.land()
             if exit_code == ExitStrategy.EXIT_NOT_SUCCESSFUL:  # player did not exit jail; do nothing
                 self.debug("\tPlayer did NOT exit Jail")
+                player.current_space.land(player)
                 self.active_player = next(self.player_order)
                 self.debug(f"\tNext player is Player #{self.active_player.id}")
                 return self.active_player
@@ -231,6 +232,7 @@ class Board:
             if self.double_roll_count + 1 >= 3:  # if it's the 3rd double send the player to jail
                 self.debug("\tThird double in a row. Sending player to jail")
                 player.put_in_jail(self.get_jail_space())
+                player.current_space.land(player)
                 self.double_roll_count = 0
                 self.active_player = next(self.player_order)
                 self.debug(f"\tNext player is Player #{self.active_player.id}")
@@ -241,6 +243,8 @@ class Board:
             self.debug(f"\tMoving player to {next_space}")
             self.move_player(player, next_space)
             self.debug(f"\tPlayer is now at {player.current_space}")
+            player.current_space.land(player, rolled=sum(list(dice)))
+
             self.debug(f"\tNext player is Player #{self.active_player.id}")
             return self.active_player  # return the same player to allow for their second turn due to double roll
         else:  # no double
@@ -250,8 +254,10 @@ class Board:
             self.debug(f"\tMoving player to {next_space}")
             self.move_player(player, next_space)
             self.debug(f"\tPlayer is now at {player.current_space}")
+            player.current_space.land(player, rolled=sum(list(dice)))
             self.active_player = next(self.player_order)
             self.debug(f"\tNext player is Player #{self.active_player.id}")
+
             return self.active_player  # return the next player in the order
 
     def set_debug(self, val: bool) -> bool:
