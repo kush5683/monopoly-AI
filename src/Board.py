@@ -168,14 +168,16 @@ class Board:
             return self._board_iterator.__next__()
 
     def place_players(self, players: PlayerOrder) -> None:
+        self.debug(f"Placing Players: \n{players.get_player_order()}")
         self.player_order = players
         for p in players.get_player_order():
             self.active_board[self.GoSpace].append(p)
         self.active_player = next(self.player_order)
-        self.active_player = next(self.player_order)
+        # self.active_player = next(self.player_order)
+        self.debug(f"First player is Player #{self.active_player.id}")
 
     def get_players(self):
-        for player in self.player_order:
+        for player in self.player_order.players:
             yield player
 
     def get_banker(self) -> Banker:

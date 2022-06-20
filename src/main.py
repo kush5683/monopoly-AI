@@ -6,7 +6,7 @@ from PlayerOrder import PlayerOrder
 
 if __name__ == '__main__':
     board = Board()
-
+    board.set_debug(True)
     with open("../space data/PlayerConfig.txt", "r") as file:
         lines = file.readlines()
         num_players = int(lines[0].strip())
@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
     for p in board.get_players():
         print(p)
+    print()
 
-    board.set_debug(True)
     for _ in range(3):
         board.play_turn()

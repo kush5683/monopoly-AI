@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 import Player
 from ColorPrinting import *
 from enums import Color, SpaceType
+import logger
 
 
 @dataclass
@@ -22,6 +23,7 @@ class Space:
     current_rent: int = 0
     visitors: list[Player.Player] = field(default_factory=list)  # list of players who are visiting the property
     most_recent_visitor: Player.Player = None  # most recent visitor of the property
+    debug_flag: bool = False
 
     def land(self, visitor: Player.Player, *args, **kwargs) -> Space:
         self.most_recent_visitor = visitor
@@ -76,3 +78,12 @@ class Space:
             return self.cost
         else:
             return float('inf')
+
+    def set_debug(self, val: bool) -> bool:
+        self.debug_flag = val
+        return self.debug_flag
+
+    def debug(self, message: str) -> None:
+        if self.debug_flag:
+            logger.log(message)
+        return
