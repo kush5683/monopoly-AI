@@ -10,7 +10,7 @@ class Player:
         self.balance = balance
         self.properties = properties
         self.current_space = current_space
-        self.in_jail = False
+        self.is_in_jail = False
         self.turns_left_in_jail = 0
 
     def __repr__(self):
@@ -50,7 +50,7 @@ class Player:
         return self.balance
 
     def put_in_jail(self, jail_space: Space) -> Space:
-        self.in_jail = True
+        self.is_in_jail = True
         self.current_space = jail_space
         return self.current_space
 

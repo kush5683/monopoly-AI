@@ -14,15 +14,17 @@ if __name__ == '__main__':
     print(f"{num_players} players, starting with ${player_start_balance}")
     p = []
     for i in range(num_players):
-        p.append(Player(player_id=i + 1, balance=player_start_balance, properties=[],
-                        current_space=board.get_go_space()))
+        temp_p = Player(player_id=i + 1, balance=player_start_balance, properties=[],
+                        current_space=board.get_go_space())
+        p.append(temp_p)
     players = PlayerOrder(p)
     board.place_players(players)
-    # print(f"{board.BankerPlayer}")
-    for player in board.get_players():
-        print(f"{player}")
 
     print(board)
 
-    for _ in range(num_players):
-        print(next(board.player_order))
+    for p in board.get_players():
+        print(p)
+
+    board.set_debug(True)
+    for _ in range(3):
+        board.play_turn()

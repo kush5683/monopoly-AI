@@ -16,6 +16,7 @@ from Space import Space
 from Tax import Tax
 from Utility import Utility
 from enums import SpaceType, Color, ExitStrategy
+import logger
 
 
 class Board:
@@ -40,6 +41,7 @@ class Board:
         self.GoToJailSpace = GoToJail(name="Go To Jail", color=Color.BLANK, type=SpaceType.GO_TO_JAIL, rent={0: 0},
                                       jail_space=self.JailSpace, owner=self.BankerPlayer)
 
+        self.debug_flag = False
         property_count = 0
         RR_count = 0
         U_count = 0
@@ -170,8 +172,9 @@ class Board:
         for p in players.get_player_order():
             self.active_board[self.GoSpace].append(p)
         self.active_player = next(self.player_order)
+        self.active_player = next(self.player_order)
 
-    def get_players(self) -> list[Player]:
+    def get_players(self):
         for player in self.player_order:
             yield player
 
@@ -199,30 +202,61 @@ class Board:
     def move_player(self, player: Player, new_space: Space) -> None:
         self.active_board[player.get_current_space()].remove(player)
         self.active_board[new_space].append(player)
+        player.current_space = new_space
 
     def play_turn(self) -> Player:
         # TODO: I think this works but im not sure
         player = self.active_player
-        if player.is_in_jail():
+        self.debug(f"It is Player #{player.id}'s turn")
+
+        if player.is_in_jail:
+            self.debug("\tPlayer in jail")
             exit_code = player.current_space.land()
             if exit_code == ExitStrategy.EXIT_NOT_SUCCESSFUL:  # player did not exit jail; do nothing
-                return next(self.player_order)
+                self.debug("\tPlayer did NOT exit Jail")
+                self.active_player = next(self.player_order)
+                self.debug(f"\tNext player is Player #{self.active_player.id}")
+                return self.active_player
             if exit_code == ExitStrategy.EXIT_VIA_DOUBLE_ROLL or exit_code == ExitStrategy.EXIT_NOT_IN_JAIL:
+                self.debug("Player exited jail")
                 # allow for roll
                 pass
+        self.debug("\tRolling Dice")
         dice = roll_dice()
-
+        self.debug(f"Rolled {dice[0]} and {dice[1]} for a total of {sum(list(dice))}")
         if dice[0] == dice[1]:  # if double handle it
+            self.debug("\tDouble roll!")
             if self.double_roll_count + 1 >= 3:  # if it's the 3rd double send the player to jail
+                self.debug("\tThird double in a row. Sending player to jail")
                 player.put_in_jail(self.get_jail_space())
                 self.double_roll_count = 0
-                return next(self.player_order)
+                self.active_player = next(self.player_order)
+                self.debug(f"\tNext player is Player #{self.active_player.id}")
+                return self.active_player
             self.double_roll_count += 1  # if it's not the third double increment the double roll count
+            self.debug("\tIncreasing double roll counter")
             next_space = self.get_next_space(dice[0] + dice[1])
+            self.debug(f"\tMoving player to {next_space}")
             self.move_player(player, next_space)
-            return player  # return the same player to allow for their second turn due to double roll
+            self.debug(f"\tPlayer is now at {player.current_space}")
+            self.debug(f"\tNext player is Player #{self.active_player.id}")
+            return self.active_player  # return the same player to allow for their second turn due to double roll
         else:  # no double
+            self.debug("\tNot a double roll")
             self.double_roll_count = 0
             next_space = self.get_next_space(dice[0] + dice[1])
+            self.debug(f"\tMoving player to {next_space}")
             self.move_player(player, next_space)
-            return next(self.player_order)  # return the next player in the order
+            self.debug(f"\tPlayer is now at {player.current_space}")
+            self.active_player = next(self.player_order)
+            self.debug(f"\tNext player is Player #{self.active_player.id}")
+            return self.active_player  # return the next player in the order
+
+    def set_debug(self, val: bool) -> bool:
+        self.debug_flag = val
+        return self.debug_flag
+
+    def debug(self, message: str) -> None:
+        if self.debug_flag:
+            logger.log(message)
+        return
