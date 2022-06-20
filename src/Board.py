@@ -104,7 +104,7 @@ class Board:
                     with open(filename, "r") as tax_file:
                         tax_json = json.load(tax_file)
                         t = Tax(name=tax_json["NAME"], color=Color.BLANK, type=SpaceType.TAX,
-                                rent=tax_json["COST"], cost=float("inf"), mortgage=float("inf"),
+                                rent={0:tax_json["COST"]}, cost=float("inf"), mortgage=float("inf"),
                                 house_cost=float("inf"), hotel_cost=float("inf"))
                         self._board.append(t)
                         self.active_board.update({t: []})

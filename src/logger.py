@@ -1,3 +1,4 @@
+from colorama import Fore, Back, Style
 def log(message: str):
     PURPLE = '\033[95m'
     CYAN = '\033[96m'
@@ -9,4 +10,4 @@ def log(message: str):
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
     END = '\033[0m'
-    print(f"{RED}{BOLD}{message}{END}")
+    print(f"{Back.RED}{BOLD}{message}{END}{Style.RESET_ALL}")
