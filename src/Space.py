@@ -24,10 +24,17 @@ class Space:
     visitors: list[Player.Player] = field(default_factory=list)  # list of players who are visiting the property
     most_recent_visitor: Player.Player = None  # most recent visitor of the property
     debug_flag: bool = True
+    for_sale: bool = True
 
     def land(self, visitor: Player.Player, *args, **kwargs) -> Space:
         self.debug(f"\tPlayer #{visitor.id} landed on {self.name}")
         self.most_recent_visitor = visitor
+        if kwargs.get('want_to_buy') and self.for_sale:
+            self.debug(f"Player #{visitor.id} wants to buy {self.name}")
+            if visitor.get_balance() >= self.cost:
+                self.debug(f"Player #{visitor.id} has enough money to buy {self.name}")
+                self.sell_to(visitor)
+                self.debug(f"Player #{self.owner.id} bought {self.name}")
         return self
 
     def __repr__(self):
@@ -74,11 +81,22 @@ class Space:
         """
         return self.visitors
 
-    def for_sale(self) -> float:
-        if self.owner.id == 0:
-            return self.cost
-        else:
-            return float('inf')
+    def sell_to(self, player: Player.Player) -> bool:
+        """
+        Sells the property to the player.
+        """
+        if self.type == SpaceType.PROPERTY or self.type == SpaceType.UTILITY or self.type == SpaceType.RAILROAD:
+            player.remove_balance(self.cost)
+            self.owner.add_balance(self.cost)
+            self.owner.properties.remove(self)
+            self.owner = player
+            self.owner.properties.append(self)
+            self.for_sale = False
+            return True
+
+    def put_on_market(self, cost: float):
+        self.for_sale = True
+        self.cost = cost
 
     def set_debug(self, val: bool) -> bool:
         self.debug_flag = val

@@ -6,9 +6,6 @@ from enums import SpaceType
 class Utility(Property):
 
     def land(self, visitor: Player, *args, **kwargs) -> float:
-        """
-        Pay the tax.
-        """
         super().land(visitor, *args, **kwargs)
         rolled = kwargs.get('rolled')
         if len(list(filter(lambda x: x.type == SpaceType.UTILITY, self.owner.get_properties()))) == 1:
