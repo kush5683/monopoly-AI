@@ -239,26 +239,20 @@ class Board:
                 return self.active_player
             self.double_roll_count += 1  # if it's not the third double increment the double roll count
             self.debug("\tIncreasing double roll counter")
-            next_space = self.get_next_space(dice[0] + dice[1])
-            self.debug(f"\tMoving player to {next_space}")
-            self.move_player(player, next_space)
-            self.debug(f"\tPlayer is now at {player.current_space}")
-            player.current_space.land(player, rolled=sum(list(dice)))
 
-            self.debug(f"\tNext player is Player #{self.active_player.id}")
-            return self.active_player  # return the same player to allow for their second turn due to double roll
         else:  # no double
             self.debug("\tNot a double roll")
             self.double_roll_count = 0
-            next_space = self.get_next_space(dice[0] + dice[1])
-            self.debug(f"\tMoving player to {next_space}")
-            self.move_player(player, next_space)
-            self.debug(f"\tPlayer is now at {player.current_space}")
-            player.current_space.land(player, rolled=sum(list(dice)))
             self.active_player = next(self.player_order)
-            self.debug(f"\tNext player is Player #{self.active_player.id}")
 
-            return self.active_player  # return the next player in the order
+        next_space = self.get_next_space(dice[0] + dice[1])
+        self.debug(f"\tMoving player to {next_space}")
+        self.move_player(player, next_space)
+        self.debug(f"\tPlayer is now at {player.current_space}")
+        player.current_space.land(player, rolled=sum(list(dice)))
+        self.debug(f"\tNext player is Player #{self.active_player.id}")
+
+        return self.active_player  # return the next player in the order
 
     def set_debug(self, val: bool) -> bool:
         self.debug_flag = val

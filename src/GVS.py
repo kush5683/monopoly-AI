@@ -6,7 +6,7 @@ Singleton framework in Python.
 Singleton class which will hold itself as an instance and allow us to
 modify fields of the class as a singleton.
 
-The way to access the singleton is << GlobalValuesSingleton.get_instance() >>
+The way to access the singleton is << GVS.get_instance() >>
 This can then be saved to a variable and used as the instance with our dictionary of values.
 """
 
@@ -24,7 +24,7 @@ class GVS: # GVS = GlobalValuesSingleton
             raise Exception("Cannot create multiple instances")
 
         # Set the starting values of the dictionary and the recursive instance
-        self.__value_dictionary = {"fp": 500}
+        self.__value_dictionary = {"fp": 500, "round": 1}
         GVS.__instance = self
 
     @staticmethod
@@ -40,8 +40,6 @@ class GVS: # GVS = GlobalValuesSingleton
     def get_value(self, value_key):
         """
         Function of convenience to get a value based on its key
-
-        This could be replaced by value specific functions i.e. "GlobalValuesSingleton.get_free_parking()"
         """
         return GVS.__instance.__value_dictionary[value_key]
 
@@ -61,4 +59,22 @@ class GVS: # GVS = GlobalValuesSingleton
         Add a new global value
         """
         GVS.__instance.__value_dictionary.set_default(value_key, value)
+
+    def free_parking(self):
+        """
+        Getter for free parking pot
+        """
+        return GVS.__instance.__value_dictionary["fp"]
+
+    def round(self):
+        """
+        Getter for round number
+        """
+        return GVS.__instance.__value_dictionary["round"]
+
+    def increment_round(self):
+        """
+        Increment the round number
+        """
+        GVS.__instance.add_to_value("round", 1)
 
