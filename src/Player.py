@@ -56,11 +56,16 @@ class Player:
 
     def buy_current_space(self) -> bool:
         # TODO: did i miss anything in the transaction process?
-        space_cost = self.current_space.for_sale()
+        space = self.current_space
+        space_cost = space.cost
+        # this was current_space.for_sale() but as far as I can tell thats not a
+        # function and not the cost of the space (which is needed here) so I swapped it
+        # - KD
         if space_cost != float('inf'):
+            # The ordering of events here was out of order so I rearranged them - KD
             self.remove_balance(space_cost)
-            self.current_space.owner = self.current_space.most_recent_visitor
-            self.current_space.owner.add_balance(space_cost)
-            self.current_space.owner.properties.remove(self.current_space)
-            self.properties.append(self.current_space)
+            space.owner.add_balance(space_cost)
+            space.owner.properties.remove(space)
+            space.owner = self #.current_space.most_recent_visitor I think you can just do "self" here - KD
+            self.properties.append(space)
         return True
